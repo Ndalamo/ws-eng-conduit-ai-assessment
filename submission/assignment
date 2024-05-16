@@ -1,0 +1,53 @@
+def create_article(tags):
+    """
+    Function to create a new article with tags.
+
+    Args:
+    - tags: A string containing comma-separated tags entered by the user.
+
+    Returns:
+    - article: A dictionary representing the created article.
+    """
+
+    # Split the tags string by commas and trim whitespace from each tag
+    tags_list = [tag.strip() for tag in tags.split(',')]
+
+    # Create a new article with the tags
+    article = {
+        'title': 'Sample Article',
+        'content': 'This is a sample article.',
+        'tags': tags_list
+    }
+
+    return article
+
+def refresh_global_feed(articles):
+    """
+    Function to refresh the global feed and display popular tags.
+
+    Args:
+    - articles: A list of dictionaries representing articles.
+
+    Returns:
+    - None
+    """
+
+    # Get the list of all tags from the articles
+    all_tags = [tag for article in articles for tag in article['tags']]
+
+    # Count the occurrences of each tag
+    tag_counts = {tag: all_tags.count(tag) for tag in set(all_tags)}
+
+    # Display popular tags
+    popular_tags = [tag for tag, count in sorted(tag_counts.items(), key=lambda item: item[1], reverse=True)]
+    print("Popular Tags:", popular_tags)
+
+# Simulate creating a new article with tags
+tags = "coding, testing"
+new_article = create_article(tags)
+
+# Append the new article to the list of articles
+articles = [new_article]
+
+# Simulate refreshing the global feed after creating the article
+refresh_global_feed(articles)
